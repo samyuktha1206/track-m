@@ -1,0 +1,30 @@
+.signup-form{
+  display:flex;
+  flex-direction: column;
+  max-width: 20%;
+  margin-right:auto;
+  margin-left: auto;
+  align-items: center;
+  margin-top:100px;
+}
+
+.cred{
+  margin-bottom: 20px;
+  height: 30px;
+  width: 250px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: blueviolet;
+  background-color: rgb(225, 210, 239);
+}
+
+.signup-button{
+  color:antiquewhite;
+  background-color: blueviolet;
+  border: none;
+  height: 30px;
+  width: 70px;
+  border-radius: 4px;
+}
+
+.header{}

@@ -1,0 +1,38 @@
+# -------------------------
+# Frontend (React/Node.js)
+# -------------------------
+frontend/budget-tracker-fr/node_modules/
+frontend/budget-tracker-fr/build/
+frontend/budget-tracker-fr/dist/
+frontend/budget-tracker-fr/.env
+frontend/budget-tracker-fr/*.log
+
+# -------------------------
+# Backend (Spring Boot)
+# -------------------------
+backend/budget-tracker/target/
+backend/budget-tracker/*.class
+backend/budget-tracker/*.log
+backend/budget-tracker/.env
+
+# -------------------------
+# IDE & OS-Specific Files
+# -------------------------
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# -------------------------
+# General Logs & Temp Files
+# -------------------------
+*.log
+*.tmp
+
+# -------------------------
+# Ignore any sensitive files
+# -------------------------
+.env
+.env.local
+.env.production
+.env.development
