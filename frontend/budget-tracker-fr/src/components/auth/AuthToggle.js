@@ -48,7 +48,7 @@ function AuthToggle(){
         email,
       };
 
-      const response = await fetch ('http://localhost:8080/api/user',{
+      const response = await fetch ('http://51.20.85.188:8080/api/user',{
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -30,7 +30,7 @@ function LogTransaction({onAddTransaction}) {
         return;
       }
       const token = await currentUser.getIdToken();
-      const response = await fetch('http://localhost:8080/api/transactions', {
+      const response = await fetch('http://51.20.85.188:8080/api/transactions', {
         method:'POST',
         headers:{
           'Authorization': `Bearer ${token}`,
