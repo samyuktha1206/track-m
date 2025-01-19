@@ -1,1 +1,13 @@
+name: CI/CD pipeline for Budget Tracker
 
+on:
+  push:
+    branches:
+      - main
+  pull request:
+    branches:
+      - main
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    
