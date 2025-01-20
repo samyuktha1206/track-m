@@ -27,6 +27,9 @@ jobs:
         working-directory: frontend/budget-tracker-fr
         run: npm run build
 
+      - name: Debug Build Directory
+        run: ls -la frontend/budget-tracker-fr/build
+
   deploy-frontend:
     needs: build-frontend
     runs-on: ubuntu-latest
