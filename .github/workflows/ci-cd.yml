@@ -1,0 +1,88 @@
+name: CI/CD pipeline for Budget Tracker
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Frontend Dependencies
+        working-directory: frontend/budget-tracker-fr
+        run: npm install
+
+      - name: Build Frontend
+        working-directory: frontend/budget-tracker-fr
+        run: npm run build
+
+  deploy-frontend:
+    needs: build-frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Frontend on S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+        run: |
+          aws s3 sync frontend/budget-tracker-fr/build/ s3://track-m-bucket --delete
+
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+  
+      - name: Set Up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+      - name: Build backend with Maven
+        run: mvn -f backend/budget-tracker/pom.xml clean package
+
+      - name: Save Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: budget-tracker-backend
+          path: backend/budget-tracker/target/*.jar
+
+  deploy-backend:
+    needs: build-backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: budget-tracker-backend
+          
+      - name: Deploy backend to EC2
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY_EC2}}
+          EC2_USER: ${{secrets.EC2_USER}}
+          EC2_HOST: ${{secrets.EC2_HOST}}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > /tmp/ssh_key.pem
+          chmod 600 /tmp/ssh_key.pem
+          #Copy new/updated .jar file to the server
+          scp -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no budget-tracker-baackend.jar $EC2_USER@$EC2_HOST://track-m-app/backend/
+          # Stop running the existing app
+          ssh -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << EOF
+          pkill -f 'java -jar /track-m-app/backend/budget-tracker-backend.jar' || true
+          # Start the app with new .jar file
+          nohup java -jar /track-m-app/backend/budget-tracker-backend.jar > /track-m-app/backend/app.log 2>&1 &
+          EOF
+
+  
