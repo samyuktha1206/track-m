@@ -26,8 +26,12 @@ public class UserService {
     }
 
     public String createNewUser(UserRequest userRequest){
+        String user_id = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user_id==null || user_id.isEmpty()){
+            throw new RuntimeException("UserId not found in SecurityContextHolder");
+        }
         User user = new User();
-        user.setId((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        user.setId(user_id);
         user.setName(userRequest.getName());
         user.setEmail(userRequest.getEmail());
         user.setDate(LocalDateTime.now());

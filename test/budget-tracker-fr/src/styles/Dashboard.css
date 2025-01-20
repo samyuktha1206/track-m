@@ -1,0 +1,86 @@
+
+.toolbar{
+  display:flex;
+  flex-direction: row;
+  height:60px;
+  position:fixed;
+  align-items: center;
+  top:0;
+  right:0;
+  left:0;
+  background-color: white;
+  height:50px;
+  border-bottom-width:1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(242, 240, 240);
+}
+
+.empty-space{
+  width:75%;
+}
+
+.account-info{
+  width:20%;
+}
+.account-icon{
+  position:relative;
+  border-radius: 60%;
+  height:40px;
+  width:40px;
+  border: 2px blueviolet;
+  margin-left: 20px;
+  object-fit: cover;
+  cursor:pointer;
+}
+
+.tool-tip{
+  position:absolute;
+  background-color: grey;
+  color: white;
+  font-size: 12px;
+  padding:4px;
+  margin-left:5px;
+  margin-top:10px;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.account-info:hover .tool-tip{
+  opacity: 1;
+}
+
+.button-box{
+  display:flex;
+  height:30px;
+  align-items: center;
+  justify-content: center;
+  margin-left:10px;
+}
+
+.logout{
+  color: white;
+  background-color: rgb(168, 65, 227);
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 101;
+  height: 30px;
+  border-radius:3px;
+}
+
+.profile-pic{
+  background-color: brown;
+}
+
+.welcome{
+  text-align: center;
+  background: linear-gradient(to right, rgb(101, 206, 240), rgb(95, 46, 243)); /* Gradient Colors */
+  -webkit-background-clip: text; /* Apply gradient only to the text */
+  -webkit-text-stroke: 0.005px black;
+  -webkit-text-fill-color: transparent;
+  margin-top:100px;
+}

@@ -1,0 +1,77 @@
+.viewlog-header{
+  font-size: 20px;
+  background: linear-gradient(to right, rgb(101, 206, 240), rgb(124, 79, 255)); /* Gradient Colors */
+  -webkit-background-clip: text; /* Apply gradient only to the text */
+  -webkit-text-stroke: 0.005px black;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  margin-bottom: none;
+  display:inline-block;
+}
+
+/* Table Container Styling */
+table {
+  width: 100%; /* Take up full width of the container */
+  border-collapse: collapse; /* Remove spacing between cells */
+  border: 1px solid #ddd; /* Border around the table */
+  font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+thead {
+  background: linear-gradient(to right, #682db4, #9d6ae1); /* Gradient for header */
+  color: white;
+  text-align: left;
+}
+
+/* Header Cells */
+th {
+  padding: 12px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Table Body Rows */
+tbody tr {
+  border-bottom: 1px solid #ddd; /* Horizontal line between rows */
+}
+
+/* Alternate Row Color for Better Readability */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light grey background */
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* White background */
+}
+
+/* Table Data Cells */
+td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Hover Effect on Rows */
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Center the First Column (Index Numbers) */
+td:first-child {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Responsive Table for Smaller Screens */
+@media (max-width: 768px) {
+  table {
+    font-size: 12px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+}
