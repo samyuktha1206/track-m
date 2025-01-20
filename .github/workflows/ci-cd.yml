@@ -27,6 +27,12 @@ jobs:
         working-directory: frontend/budget-tracker-fr
         run: npm run build
 
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build artifact
+          path: frontend/budget-tracker-fr/build
+          
       - name: Debug Build Directory
         run: ls -la frontend/budget-tracker-fr/build
 
