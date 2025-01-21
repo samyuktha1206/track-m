@@ -74,7 +74,11 @@ jobs:
           echo "SPRING_SECURITY_USER_PASSWORD = ${{secrets.SPRING_SECURITY_USER_PASSWORD}}" >> $GITHUB_ENV
           
       - name: Build backend with Maven
-        run: mvn -f backend/budget-tracker/pom.xml clean package -e -X
+        run: mvn -f backend/budget-tracker/pom.xml clean package -Dspring.profiles.active=test
+
+      - name: Debug Test Reports
+        if: failure()
+        run: cat backend/budget-tracker/target/surefire-reports/*.txt
 
       - name: Debug bk-Build Directory
         run: ls -la backend/budget-tracker/target
