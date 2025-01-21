@@ -108,7 +108,7 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > /tmp/ssh_key.pem
           chmod 600 /tmp/ssh_key.pem
           #Copy new/updated .jar file to the server
-          scp -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no backend/budget-tracker/target/budget-tracker-baackend.jar $EC2_USER@$EC2_HOST://track-m-app/backend/
+          scp -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no backend/budget-tracker/target/budget-tracker-backend.jar $EC2_USER@$EC2_HOST://track-m-app/backend/
           # Stop running the existing app
           ssh -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << EOF
           pkill -f 'java -jar /track-m-app/backend/budget-tracker-backend.jar' || true
