@@ -98,6 +98,9 @@ jobs:
         with:
           name: budget-tracker-backend
           path: backend/budget-tracker/target
+
+      - name: List Backend Artifacts
+        run: ls -la backend/budget-tracker/target
           
       - name: Deploy backend to EC2
         env:
