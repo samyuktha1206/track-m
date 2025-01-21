@@ -38,15 +38,11 @@ jobs:
         env:
           SSH_PRIVATE_KEY_EC2: ${{secrets.SSH_PRIVATE_KEY_EC2}}
         run: |
-            echo "SSH_PRIVATE_KEY_EC2" > /tmp/ssh_key.pem
-            chmod 600 /tmp/ssh_key.pem
+            echo "SSH_PRIVATE_KEY_EC2" > ssh_key.pem
+            chmod 600 ssh_key.pem
+            echo "Testing SSH connection..."
+            ssh -o StrictHostKeyChecking=no -i ssh_key.pem ec2-user@51.20.85.188 echo "SSH Connection Successful"
           
-  
-      - name: Test SSH Connection
-        run: |
-          echo "Testing SSH connection..."
-          ssh -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no ec2-user@51.20.85.188 echo "SSH Connection Successful"
-
   # test-ssh:
   #   needs: update-security-group
   #   runs-on: ubuntu-latest
