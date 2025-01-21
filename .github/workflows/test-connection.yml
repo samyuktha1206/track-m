@@ -34,10 +34,6 @@ jobs:
           AWS_DEFAULT_REGION: ${{secrets.AWS_DEFAULT_REGION}}
           SECURITY_GROUP_ID: ${{secrets.SECURITY_GROUP_ID}}
 
-  test-ssh:
-    needs: update-security-group
-    runs-on: ubuntu-latest
-    steps:
       - name: Set Up SSH Key
         env:
           SSH_PRIVATE_KEY_EC2: ${{secrets.SSH_PRIVATE_KEY_EC2}}
@@ -50,3 +46,20 @@ jobs:
         run: |
           echo "Testing SSH connection..."
           ssh -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no ec2-user@51.20.85.188 echo "SSH Connection Successful"
+
+  # test-ssh:
+  #   needs: update-security-group
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Set Up SSH Key
+  #       env:
+  #         SSH_PRIVATE_KEY_EC2: ${{secrets.SSH_PRIVATE_KEY_EC2}}
+  #       run: |
+  #           echo "SSH_PRIVATE_KEY_EC2" > /tmp/ssh_key.pem
+  #           chmod 600 /tmp/ssh_key.pem
+          
+  
+  #     - name: Test SSH Connection
+  #       run: |
+  #         echo "Testing SSH connection..."
+  #         ssh -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no ec2-user@51.20.85.188 echo "SSH Connection Successful"
