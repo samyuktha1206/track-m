@@ -36,3 +36,6 @@ Thumbs.db
 .env.local
 .env.production
 .env.development
+
+#Ignore virtual environments
+venv/
