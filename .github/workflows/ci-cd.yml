@@ -40,6 +40,11 @@ jobs:
     needs: build-frontend
     runs-on: ubuntu-latest
     steps:
+
+      - name: Set Environment Variables
+        run: |
+          echo "SPRING_SECURITY_USER_NAME = ${{secrets.SPRING_SECURITY_USER_NAME}}" >> $GITHUB_ENV
+          echo "SPRING_SECURITY_USER_PASSWORD = ${{secrets.SPRING_SECURITY_USER_PASSWORD}}" >> $GITHUB_ENV
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
