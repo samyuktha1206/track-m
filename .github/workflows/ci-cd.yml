@@ -150,13 +150,13 @@ jobs:
           echo "private key retreived"
           
           #Copy new/updated .jar file to the server
-          scp -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no backend/budget-tracker/target/*.jar ec2-user@51.20.85.188://track-m-app/backend/
+          scp -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no backend/budget-tracker/target/*.jar ec2-user@51.20.85.188://track-m/backend/target/
           echo "jar file copied to ec2..."
           # Stop running the existing app
           ssh -v -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no ec2-user@51.20.85.188 << EOF
-          pkill -f 'java -jar /track-m-app/backend/budget-tracker-backend.jar' || true
+          pkill -f 'java -jar /track-m/backend/target/*.jar' || true
           # Start the app with new .jar file
-          nohup java -jar /track-m-app/backend/budget-tracker-backend.jar > /track-m-app/backend/app.log 2>&1 &
+          nohup java -jar /track-m-app/backend/target/*.jar > /track-m-app/backend/app.log 2>&1 &
           EOF
 
   revoke-security-group:
