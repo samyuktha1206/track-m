@@ -54,12 +54,7 @@ jobs:
       - name: Test SSH Conncetion
         run: |
             echo "Testing SSH connection..."
-            ssh -v ssh -v \
-              -i ssh_key.pem \
-              -o HostKeyAlgorithms=+ssh-rsa \
-              -o PubkeyAcceptedAlgorithms=+ssh-rsa \
-              -o StrictHostKeyChecking=no \ 
-              ec2-user@51.20.85.188
+            ssh -v -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no ec2-user@51.20.85.188
             echo "SSH Connection Successful"
           
   # test-ssh:
