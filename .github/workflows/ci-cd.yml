@@ -136,8 +136,8 @@ jobs:
       - name: Fetch Host Key
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -R ${{secrets.EC2_HOST}} || true # remove existing entry if any
-          ssh-keyscan -H ${{secrets.EC2_HOST}} >> ~/.ssh/known_hosts
+          ssh-keyscan -R 51.20.85.188 || true # remove existing entry if any
+          ssh-keyscan -H 51.20.85.188 >> ~/.ssh/known_hosts
           
       - name: Deploy backend to EC2
         run: |
@@ -146,10 +146,10 @@ jobs:
           echo "private key retreived"
           
           #Copy new/updated .jar file to the server
-          scp -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no backend/budget-tracker/target/*.jar ${{secrets.EC2_USER}}@${{secrets.EC2_HOST}}://track-m-app/backend/
+          scp -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no backend/budget-tracker/target/*.jar ec2-user@51.20.85.188://track-m-app/backend/
           echo "jar file copied to ec2..."
           # Stop running the existing app
-          ssh -v -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no ${{secrets.EC2_USER}}@${{secrets.EC2_HOST}} << EOF
+          ssh -v -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no ec2-user@51.20.85.188 << EOF
           pkill -f 'java -jar /track-m-app/backend/budget-tracker-backend.jar' || true
           # Start the app with new .jar file
           nohup java -jar /track-m-app/backend/budget-tracker-backend.jar > /track-m-app/backend/app.log 2>&1 &
