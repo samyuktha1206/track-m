@@ -90,6 +90,7 @@ jobs:
           path: backend/budget-tracker/target/*.jar
 
   update-security-group:
+    needs: build-backend
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -120,12 +121,12 @@ jobs:
           SECURITY_GROUP_ID: ${{secrets.SECURITY_GROUP_ID}}
 
 
-  deploy-backend:
-    needs: [update-security-group, build-backend]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # deploy-backend:
+  #   needs: [build-backend]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
         
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
