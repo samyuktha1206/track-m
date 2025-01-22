@@ -140,8 +140,9 @@ jobs:
       - name: Fetch Host Key
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -R 51.20.85.188 || true # remove existing entry if any
+          ssh-keygen -R 51.20.85.188 || true # remove existing entry if any
           ssh-keyscan -H 51.20.85.188 >> ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
           
       - name: Deploy backend to EC2
         run: |
