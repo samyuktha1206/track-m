@@ -160,6 +160,8 @@ jobs:
           echo "deploying backend..."
           ssh -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no ec2-user@51.20.85.188 << EOF
           echo "SSH Connection Successful"
+          export SPRING_SECURITY_USER_NAME=${{secrets.SPRING_SECURITY_USER_NAME}}
+          export SPRING_SECURITY_USER_PASSWORD=${{secrets.SPRING_SECURITY_USER_PASSWORD}}
           # pkill -f 'java -jar /home/ec2-user/track-m-app/backend/target/*.jar' || true
           nohup java -jar /home/ec2-user/track-m-app/backend/target/*.jar > /home/ec2-user/track-m-app/backend/app.log 2>&1 &
           echo "App is up and running :* "
