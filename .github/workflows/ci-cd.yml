@@ -70,11 +70,12 @@ jobs:
 
       - name: Set Environment Variables
         run: |
+          echo "CI=true" >>$GITHUB_ENV
           echo "SPRING_SECURITY_USER_NAME = ${{secrets.SPRING_SECURITY_USER_NAME}}" >> $GITHUB_ENV
           echo "SPRING_SECURITY_USER_PASSWORD = ${{secrets.SPRING_SECURITY_USER_PASSWORD}}" >> $GITHUB_ENV
           echo "FIREBASE_SERVICE_ACCOUNT_PATH = ${{secrets.FIREBASE_SERVICE_ACCOUNT_PATH}}" >> $GITHUB_ENV
       - name: Build backend with Maven
-        run: mvn -f backend/budget-tracker/pom.xml clean package -Dspring.profiles.active=test
+        run: mvn -f backend/budget-tracker/pom.xml clean package -Pci -Dspring.profiles.active=test
 
       - name: Debug Test Reports
         if: failure()
@@ -169,6 +170,8 @@ jobs:
           export SPRING_SECURITY_USER_NAME=${{secrets.SPRING_SECURITY_USER_NAME}}
           export SPRING_SECURITY_USER_PASSWORD=${{secrets.SPRING_SECURITY_USER_PASSWORD}}
           export FIREBASE_SERVICE_ACCOUNT_PATH=${{secrets.FIREBASE_SERVICE_ACCOUNT_PATH}}
+          chmod 600 /home/ec2-user/track-m-app/backend/resources/firebaseServiceAccountKey.json
+          echo "Permissions set to 600 for firebaseServiceAccountKey.json..."
           # pkill -f 'java -jar /home/ec2-user/track-m-app/backend/target/*.jar' || true
           nohup java -jar /home/ec2-user/track-m-app/backend/target/*.jar > /home/ec2-user/track-m-app/backend/app.log 2>&1 &
           echo "App is up and running :* "
