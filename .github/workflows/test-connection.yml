@@ -44,14 +44,18 @@ jobs:
 
       - name: Set Up SSH Key
         run: |
-            echo "SSH_PRIVATE_KEY_EC2" >> ssh_key.pem
+            echo "$SSH_PRIVATE_KEY_EC2" >> ssh_key.pem
             chmod 400 ssh_key.pem
             echo "private key retreived"
+
+      - name: Debug Key Content
+        run: cat ssh_key.pem
 
       - name: Test SSH Conncetion
         run: |
             echo "Testing SSH connection..."
-            ssh -o StrictHostKeyChecking=no -i ssh_key.pem ec2-user@51.20.85.188 echo "SSH Connection Successful"
+            ssh -o StrictHostKeyChecking=no -i ssh_key.pem ec2-user@51.20.85.188 
+            echo "SSH Connection Successful"
           
   # test-ssh:
   #   needs: update-security-group
