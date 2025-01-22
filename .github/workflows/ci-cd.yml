@@ -72,7 +72,7 @@ jobs:
         run: |
           echo "SPRING_SECURITY_USER_NAME = ${{secrets.SPRING_SECURITY_USER_NAME}}" >> $GITHUB_ENV
           echo "SPRING_SECURITY_USER_PASSWORD = ${{secrets.SPRING_SECURITY_USER_PASSWORD}}" >> $GITHUB_ENV
-          
+          echo "FIREBASE_SERVICE_ACCOUNT_PATH = ${{secrets.FIREBASE_SERVICE_ACCOUNT_PATH}}" >> $GITHUB_ENV
       - name: Build backend with Maven
         run: mvn -f backend/budget-tracker/pom.xml clean package -Dspring.profiles.active=test
 
