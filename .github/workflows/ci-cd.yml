@@ -89,7 +89,7 @@ jobs:
           name: budget-tracker-backend
           path: backend/budget-tracker/target/*.jar
 
-  update-security-group:
+  deploy-backend:
     needs: build-backend
     runs-on: ubuntu-latest
     steps:
