@@ -34,12 +34,20 @@ jobs:
           AWS_DEFAULT_REGION: ${{secrets.AWS_DEFAULT_REGION}}
           SECURITY_GROUP_ID: ${{secrets.SECURITY_GROUP_ID}}
 
-      - name: Set Up SSH Key
+      - name: Fetch Host Key
+        run: |
+          ssh-keyscan -H 51.20.85.188 >> ~/.ssh/known_hosts
         env:
           SSH_PRIVATE_KEY_EC2: ${{secrets.SSH_PRIVATE_KEY_EC2}}
+
+      - name: Set Up SSH Key
         run: |
             echo "SSH_PRIVATE_KEY_EC2" > ssh_key.pem
             chmod 600 ssh_key.pem
+            echo "private key retreived"
+
+      - name: Test SSH Conncetion
+        run: |
             echo "Testing SSH connection..."
             ssh -o StrictHostKeyChecking=no -i ssh_key.pem ec2-user@51.20.85.188 echo "SSH Connection Successful"
           
