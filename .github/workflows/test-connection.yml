@@ -39,12 +39,10 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -R 51.20.85.188 || true # remove existing entry if any
           ssh-keyscan -H 51.20.85.188 >> ~/.ssh/known_hosts
-        env:
-          SSH_PRIVATE_KEY_EC2: ${{secrets.SSH_PRIVATE_KEY_EC2}}
-
+          
       - name: Set Up SSH Key
         run: |
-            echo "$SSH_PRIVATE_KEY_EC2" >> ssh_key.pem
+            echo ${{secrets.SSH_PRIVATE_KEY_EC2}} >> ssh_key.pem
             chmod 400 ssh_key.pem
             echo "private key retreived"
 
