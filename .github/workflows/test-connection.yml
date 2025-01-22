@@ -42,7 +42,7 @@ jobs:
           
       - name: Set Up SSH Key
         run: |
-            echo ${{secrets.SSH_PRIVATE_KEY_EC2}} >> ssh_key.pem
+            echo "${{secrets.SSH_PRIVATE_KEY_EC2}}" >> ssh_key.pem
             chmod 400 ssh_key.pem
             echo "private key retreived"
 
