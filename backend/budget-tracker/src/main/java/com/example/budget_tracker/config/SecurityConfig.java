@@ -31,7 +31,7 @@ public class SecurityConfig {
     @Bean
     public CorsFilter corsFilter(){
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("https://track-m-bucket.s3.eu-north-1.amazonaws.com", "http://51.20.85.188"));
+        config.setAllowedOrigins(Arrays.asList("https://track-m-bucket.s3.eu-north-1.amazonaws.com", "http://51.20.85.188", "https://dzwoae928v0dg.cloudfront.net"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
