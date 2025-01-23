@@ -28,10 +28,4 @@ public class FirebaseConfig {
         FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(serviceAccount)).build();
         return FirebaseApp.initializeApp(options);
     }
-
-    @Bean
-    @Profile("test")
-    public FirebaseApp mockFirebaseApp(){
-        return FirebaseApp.initializeApp();
-    }
 }
