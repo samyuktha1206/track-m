@@ -31,7 +31,7 @@ jobs:
         run: ls -la frontend/budget-tracker-fr/build
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifact
           path: frontend/budget-tracker-fr/build
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Build Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: frontend/budget-tracker-fr/build
@@ -85,7 +85,7 @@ jobs:
         run: ls -la backend/budget-tracker/target
 
       - name: Save Build Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: budget-tracker-backend
           path: backend/budget-tracker/target/*.jar
@@ -130,7 +130,7 @@ jobs:
   #       uses: actions/checkout@v3
         
       - name: Download Build Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: budget-tracker-backend
           path: backend/budget-tracker/target
