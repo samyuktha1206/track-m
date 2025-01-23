@@ -161,7 +161,7 @@ jobs:
           echo "firebase service account file created"
           chmod 600 firebaseServiceAccountKey.json
           echo "chmod 600 permission set"
-          scp -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no firebaseServiceAccountKey.json ec2-user@<51.20.85.188>:/home/ec2-user/backend/resources/
+          scp -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no firebaseServiceAccountKey.json ec2-user@<51.20.85.188://home/ec2-user/backend/resources/
           echo "Service account key transferred to EC2"
           # Copy new/updated .jar file to the server
           scp -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no backend/budget-tracker/target/*.jar ec2-user@51.20.85.188://home/ec2-user/track-m-app/backend/target/
