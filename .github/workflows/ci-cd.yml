@@ -155,10 +155,12 @@ jobs:
           echo "SSH Connection Successful"
           mkdir -p /home/ec2-user/track-m-app/backend/resources
           mkdir -p /home/ec2-user/track-m-app/backend/target
+          echo "directories made..."
           EOF
-          # Create firebase service account file
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" >> firebaseServiceAccountKey.json
+          echo "firebase service account file created"
           chmod 600 firebaseServiceAccountKey.json
+          echo "chmod 600 permission set"
           scp -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no firebaseServiceAccountKey.json ec2-user@<51.20.85.188>:/home/ec2-user/backend/resources/
           echo "Service account key transferred to EC2"
           # Copy new/updated .jar file to the server
