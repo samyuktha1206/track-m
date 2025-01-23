@@ -144,7 +144,19 @@ jobs:
           ssh-keygen -R 51.20.85.188 || true # remove existing entry if any
           ssh-keyscan -H 51.20.85.188 >> ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
-          
+
+      - name: Create Firebase Service Account JSON
+        id: create-firebase-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "firebaseServiceAccountKey.json"
+          json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          run: echo "firebase service account file created"
+
+      - name: Set Permissions for JSON
+        run: |
+          chmod 600 firebaseServiceAccountKey.json
+          echo "chmod 600 permission set"
       - name: Deploy backend to EC2
         run: |
           echo "${{secrets.SSH_PRIVATE_KEY_EC2}}" >> ssh_key.pem
@@ -157,10 +169,6 @@ jobs:
           mkdir -p /home/ec2-user/track-m-app/backend/target
           echo "directories made..."
           EOF
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" >> firebaseServiceAccountKey.json
-          echo "firebase service account file created"
-          chmod 600 firebaseServiceAccountKey.json
-          echo "chmod 600 permission set"
           scp -i ssh_key.pem -o HostKeyAlgorithms=+ssh-rsa -o StrictHostKeyChecking=no firebaseServiceAccountKey.json ec2-user@51.20.85.188://home/ec2-user/track-m-app/backend/resources/
           echo "Service account key transferred to EC2"
           # Copy new/updated .jar file to the server
