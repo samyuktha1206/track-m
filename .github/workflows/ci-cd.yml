@@ -182,7 +182,7 @@ jobs:
           export FIREBASE_SERVICE_ACCOUNT_PATH=${{secrets.FIREBASE_SERVICE_ACCOUNT_PATH}}
           chmod 600 /home/ec2-user/track-m-app/backend/resources/firebaseServiceAccountKey.json
           echo "Permissions set to 600 for firebaseServiceAccountKey.json..."
-          pkill -f 'java -jar /home/ec2-user/track-m-app/backend/target/*.jar' || true
+          pkill -f 'java -jar /home/ec2-user/track-m-app/backend/target/' || true
           echo "existing process killed"
           nohup java -jar /home/ec2-user/track-m-app/backend/target/*.jar > /home/ec2-user/track-m-app/backend/app.log 2>&1 &
           echo "App is up and running :* "
