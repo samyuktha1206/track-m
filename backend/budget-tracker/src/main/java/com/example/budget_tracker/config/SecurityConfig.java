@@ -63,7 +63,7 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(Arrays.asList("http://track-m-bucket.s3-website.eu-north-1.amazonaws.com", "http://51.20.85.188"));
+                    config.setAllowedOrigins(Arrays.asList("https://dzwoae928v0dg.cloudfront.net","http://track-m-bucket.s3-website.eu-north-1.amazonaws.com", "http://51.20.85.188"));
                     config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(Arrays.asList("*"));
                     config.setAllowCredentials(true);
