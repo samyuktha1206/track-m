@@ -39,3 +39,8 @@ Thumbs.db
 
 #Ignore virtual environments
 venv/
+
+#------------------------
+#Learn-Java-Project
+#------------------------
+backend/Learn_Java/

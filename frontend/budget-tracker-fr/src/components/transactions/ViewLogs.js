@@ -13,7 +13,7 @@ function ViewLogs({latestTransaction}){
           return;
         }
         const token = await currentUser.getIdToken();
-        const response = await fetch('http://51.20.85.188:8080/api/transactions/recent10',{
+        const response = await fetch('https://51.20.85.188:8080/api/transactions/recent10',{
           method: 'GET',
           headers:{
             'Authorization': `Bearer ${token}`,

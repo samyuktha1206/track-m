@@ -35,7 +35,7 @@ import '../../styles/Signup.css';
         name : name,
         email : email,
       }
-      const response = await fetch('http://51.20.85.188:8080/api/user',{
+      const response = await fetch('https://51.20.85.188:8080/api/user',{
         method : 'POST',
         headers : {
           'Authorization' : `Bearer ${token}`,
