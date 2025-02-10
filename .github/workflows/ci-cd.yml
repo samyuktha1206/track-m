@@ -13,7 +13,10 @@ jobs:
     steps:
       - name: delete old artifacts from storage
         uses: actions/github-script@v6
+        env:
+          GITHUB_PAT: ${{secrets.ACTION_PAT}}
         with:
+          github-token: ${{env.GITHUB_PAT}}
           script: |
             const {repo, owner} = context.repo;
             const artifacts = await github.rest.actions.listArtifactsForRepo({repo, owner, per_page:100});
@@ -72,6 +75,7 @@ jobs:
           aws s3 sync frontend/budget-tracker-fr/build s3://track-m-bucket --delete
 
   build-backend:
+    needs: delete-artifacts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
