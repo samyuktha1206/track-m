@@ -14,7 +14,7 @@ jobs:
       - name: delete old artifacts from storage
         uses: actions/github-script@v6
         env:
-          GITHUB_PAT: ${{secrets.ACTION_PAT}}
+          GITHUB_PAT: ${{secrets.ACTIONS_PAT}}
         with:
           github-token: ${{env.GITHUB_PAT}}
           script: |
