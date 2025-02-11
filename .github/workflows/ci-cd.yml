@@ -8,25 +8,25 @@ on:
     branches:
       - main
 jobs:
-  cleanup-artifacts:
-    runs-on: ubuntu-latest
-    steps:
-      - name: delete old artifacts from storage
-        uses: actions/github-script@v6
-        env:
-          GITHUB_PAT: ${{secrets.ACTIONS_PAT}}
-        with:
-          github-token: ${{env.GITHUB_PAT}}
-          script: |
-            const {repo, owner} = context.repo;
-            const artifacts = await github.rest.actions.listArtifactsForRepo({repo, owner, per_page:100});
-            for(const artifact of artifacts.data.artifacts){
-              await github.rest.actions.deleteArtifact({repo, owner, artifact_id: artifact.id});
-              console.log(`artifact deleted. artifact_name: ${artifact.name}`);  
-            };
+  # cleanup-artifacts:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: delete old artifacts from storage
+  #       uses: actions/github-script@v6
+  #       env:
+  #         GITHUB_PAT: ${{secrets.ACTIONS_PAT}}
+  #       with:
+  #         github-token: ${{env.GITHUB_PAT}}
+  #         script: |
+  #           const {repo, owner} = context.repo;
+  #           const artifacts = await github.rest.actions.listArtifactsForRepo({repo, owner, per_page:100});
+  #           for(const artifact of artifacts.data.artifacts){
+  #             await github.rest.actions.deleteArtifact({repo, owner, artifact_id: artifact.id});
+  #             console.log(`artifact deleted. artifact_name: ${artifact.name}`);  
+  #           };
       
   build-frontend:
-    needs: cleanup-artifacts
+    # needs: cleanup-artifacts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -48,24 +48,24 @@ jobs:
       - name: Debug Build Directory
         run: ls -la frontend/budget-tracker-fr/build
 
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifact
-          path: frontend/budget-tracker-fr/build
+      # - name: Upload Build Artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: build-artifact
+      #     path: frontend/budget-tracker-fr/build
 
-  deploy-frontend:
-    needs: build-frontend
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Build Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build-artifact
-          path: frontend/budget-tracker-fr/build
+  # deploy-frontend:
+  #   needs: build-frontend
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Download Build Artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: build-artifact
+  #         path: frontend/budget-tracker-fr/build
 
-      - name: Debug Extracted Build Directory
-        run: ls -la frontend/budget-tracker-fr/build
+      # - name: Debug Extracted Build Directory
+      #   run: ls -la frontend/budget-tracker-fr/build
         
       - name: Deploy Frontend on S3
         env:
@@ -75,7 +75,7 @@ jobs:
           aws s3 sync frontend/budget-tracker-fr/build s3://track-m-bucket --delete
 
   build-backend:
-    needs: cleanup-artifacts
+    # needs: cleanup-artifacts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -103,18 +103,18 @@ jobs:
       - name: Debug bk-Build Directory
         run: ls -la backend/budget-tracker/target
 
-      - name: Save Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: budget-tracker-backend
-          path: backend/budget-tracker/target/*.jar
+      # - name: Save Build Artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: budget-tracker-backend
+      #     path: backend/budget-tracker/target/*.jar
 
-  deploy-backend:
-    needs: build-backend
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # deploy-backend:
+  #   needs: build-backend
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
         
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -148,11 +148,11 @@ jobs:
   #     - name: Checkout code
   #       uses: actions/checkout@v3
         
-      - name: Download Build Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: budget-tracker-backend
-          path: backend/budget-tracker/target
+      # - name: Download Build Artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: budget-tracker-backend
+      #     path: backend/budget-tracker/target
 
       - name: List Backend Artifacts
         run: ls -la backend/budget-tracker/target
@@ -208,7 +208,7 @@ jobs:
           EOF
 
   revoke-security-group:
-    needs: [deploy-frontend, deploy-backend]
+    needs: [build-frontend, build-backend]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
