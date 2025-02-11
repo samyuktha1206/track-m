@@ -75,7 +75,7 @@ jobs:
           aws s3 sync frontend/budget-tracker-fr/build s3://track-m-bucket --delete
 
   build-backend:
-    needs: delete-artifacts
+    needs: cleanup-artifacts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
